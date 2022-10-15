@@ -1,17 +1,14 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
+﻿Console.WriteLine("Enter A number: AxA - this is your matrix's size.");
 
-Console.WriteLine("Enter A number: AxA - this is your matrix's size.");
+int A  = Convert.ToInt32(Console.ReadLine());
 
-int A  = Convert.ToInt32 (Console.ReadLine());
-
-int [,] firstMatrix = new int [A, A];
+double [,] firstMatrix = new double [A, A];
  for (int x = 0; x < A; x++)
  {
      for (int y = 0; y < A; y++)
      {
         Console.WriteLine($"Entered {x}{y} number of the matrix");
-        firstMatrix[x,y] = Convert.ToInt32 (Console.ReadLine());
+        firstMatrix[x,y] = Convert.ToDouble (Console.ReadLine());
      }
 
     Console.WriteLine();
@@ -28,16 +25,55 @@ if (ans == "Yes")
     {
         for (int y = 0; y < A; y++)
         {
-            Console.Write(firstMatrix[x,y]);
-            
+            Console.Write(firstMatrix[x, y]);
+
         }
-        Console.WriteLine();    
+        Console.WriteLine();
     }
 }
-else
-{
-    Console.WriteLine("Сlick something to continue.");
-}
+Console.WriteLine("show the number of positive/negative");
+string posNeg = Console.ReadLine();
 
+if (posNeg == "positive")
+{
+    int i = 0;
+    for (int x = 0; x < A; x++)
+    {
+        for (int y = 0; y < A; y++)
+        {
+           if(firstMatrix[x,y] > 0)
+            {
+                i++;
+            }
+            else
+            {
+                i = i;
+            }
+        } 
+    }
+
+    Console.WriteLine($"The number of positive numbers is {i}! ");
+
+}
+else if (posNeg == "negative")
+{
+    int j = 0;
+    for (int x = 0; x < A; x++)
+    {
+        for (int y = 0; y < A; y++)
+        {
+            if (firstMatrix[x, y] < 0)
+            {
+                j++;
+            }
+            else
+            {
+                j = j;
+            }
+        }
+    }
+
+    Console.WriteLine($"The number of negative numbers is {j}! ");
+}
 
 
