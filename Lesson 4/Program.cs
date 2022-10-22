@@ -1,140 +1,120 @@
 ﻿using Lesson_4;
-using Microsoft.VisualBasic;
-using System;
 
-Console.WriteLine("Enter A number: AxA - this is your matrix's size.");
 
-int A  = Convert.ToInt32(Console.ReadLine());
+int line = 0 ;
+int col = 0;
+bool cont = true;
 
-double [,] firstMatrix = new double [A, A];
- for (int x = 0; x < A; x++)    //Entering matrix values
+while(cont == true) //Entering lines and columns
+{
+    Console.Clear();
+    cont = false;
+    try
+    {
+        Console.WriteLine("Enter number of matrix lines.");
+        line  = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Enter number of matrix columns.");
+        col = Convert.ToInt32(Console.ReadLine());
+    }
+    catch (Exception)
+    {
+        Console.WriteLine("Worng values.Try again!");
+        cont = true;
+        Console.ReadLine();
+    }
+    
+}
+
+double [,] firstMatrix = new double [line, col];  
+
+ for (int x = 0; x < line; x++)    //Entering matrix values
  {
-     for (int y = 0; y < A; y++)
-     {
-        Console.WriteLine($"Entered {x}{y} number of the matrix"); 
-        firstMatrix[x,y] = Convert.ToDouble (Console.ReadLine());
-     }
+    for (int y = 0; y < col; y++)
+    {
+        bool cont2 = true;
+        while (cont2 == true)
+        {
+            cont2 = false;
+            try
+            {
+                Console.WriteLine($"Entered {x}{y} number of the matrix");
+                firstMatrix[x, y] = Convert.ToDouble(Console.ReadLine());
+            }
+            catch
+            {
+                Console.WriteLine("No valid number.Try again.");
+                cont2 = true;
+            }
+        }
 
+    }
     Console.WriteLine();
 
  }
 
-Console.WriteLine("Do you wnat to look at your matrix?(Yes/No)"); //Display the matrix
-
-string ans = Console.ReadLine();
-
-if (ans == "Yes")
+bool cont3 = true;
+while (cont3 == true)
 {
-    for (int x = 0; x < A; x++)
-    {
-        for (int y = 0; y < A; y++)
-        {
-            Console.Write("|"+firstMatrix[x, y] + " ");
+    Console.WriteLine("Do you wnat to look at your matrix?(Yes/No)"); //Display the matrix
 
+    string ans = Console.ReadLine();
+    if (ans == "Yes")
+    {
+        for (int x = 0; x < line; x++)
+        {
+            for (int y = 0; y < col; y++)
+            {
+                Console.Write("|" + firstMatrix[x, y] + " ");
+
+            }
+            Console.WriteLine();
         }
-        Console.WriteLine(); 
+        cont3 = false;
+    }
+    else if (ans == "No")
+    {
+        cont3 = false;
+        break;
+    }
+    else
+    {
+        Console.WriteLine("No valid action try again");
+        cont3 = true;
     }
 }
 
-Console.WriteLine("Choose the number of action:");
-Console.WriteLine("1.Show the number of positive/negative:");
-Console.WriteLine("2.Sorting matrix elements row by row.");
-Console.WriteLine("3.Invert matrix elements row by row."); 
-string menu = Console.ReadLine();
+string menu = Menu.Actions(); // Entering menu
+   
 
 if (menu == "1")
 {
-    string choosePosNeg = "";
-    Menu.posNeg(ref choosePosNeg);
-    if (choosePosNeg == "positive")
-    {
-        int i = 0;
-        for (int x = 0; x < A; x++)
-        {
-            for (int y = 0; y < A; y++)
-            {
-                if(firstMatrix[x,y] > 0)
-                {
-                    i++;
-                }
-                else
-                {
-                    i = i;
-                }
-            } 
-        }
-
-        Console.WriteLine($"The number of positive numbers is {i}! ");
-
-    }
-
-    else if (choosePosNeg == "negative")
-    {
-        int j = 0;
-        for (int x = 0; x < A; x++)
-        {
-            for (int y = 0; y < A; y++)
-            {
-                if (firstMatrix[x, y] < 0)
-                {
-                    j++;
-                }
-                else
-                {
-                    j = j;
-                }
-            }
-        }
-
-        Console.WriteLine($"The number of negative numbers is {j}! ");
-    } 
+    Menu.PosNeg(line, col, firstMatrix);
+    Console.ReadLine();
 }
 else if (menu == "2")
 {
-    string chooseSort = "";
-    Menu.sortEl(ref chooseSort);
-   
-    if (chooseSort == "1")
-    {
-        for (int x = 0; x < A; x++)
-        {
-            for (int y = 0; y < A; y++)
-            {  
-                
-                while (firstMatrix[x, y] > firstMatrix[x++, y++])
-                {
-                    firstMatrix[x, y] = firstMatrix[x++, y++];
-                        
-                }
-
-                Console.WriteLine(firstMatrix[x, y]);
-
-            }
-
-            Console.WriteLine();
-
-        }
-    }
+    Menu.SortedMatrix(line, col, firstMatrix);
 }
-else if (menu == "3")
+else if (menu == "3") // positive humbers to negative. negative to positive
 {
     string inversion = "";
-    Menu.matrixInversion (ref inversion);
-    double[,] newMatrix = new double[A, A];
+    Menu.matrixInversion(ref inversion);
+    double[,] newMatrix = new double[line, col];
     if (inversion == "Yes")
     {
-        
-        for (int x = 0; x < A; x++)
+
+        for (int x = 0; x < line; x++)
         {
-            for (int y = 0; y < A; y++)
-            {  
-                newMatrix[x,y] = - firstMatrix[x, y];
-                Console.Write("|" + newMatrix[x,y] + " ");
+            for (int y = 0; y < col; y++)
+            {
+                newMatrix[x, y] = -firstMatrix[x, y];
+                Console.Write("|" + newMatrix[x, y] + " ");
             }
             Console.WriteLine();
         }
     }
-    
+
 }
 
 
