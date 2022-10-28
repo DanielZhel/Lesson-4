@@ -9,26 +9,20 @@ namespace Lesson_4
     public static class Menu
     {
 
-        public static string posNeg( ref string choise)
+        public static string posNeg()
         {
-            Console.WriteLine("show the number of positive/negative");
-            choise = Console.ReadLine();
+            Console.WriteLine("Show the number of positive/negative");
+            string choise = Console.ReadLine();
             return choise;
         }
 
-        public static string sortEl(ref string sortEl)
+        public static string sortEl()
         {
-            
                 Console.WriteLine("Choose the number of action: 1. From largest to smallest. / 2.From smallest to largest.");
-                sortEl = Console.ReadLine();
+                string sortEl = Console.ReadLine();
                 return sortEl;
         }
-        public static void matrixInversion(ref string matrixInversion)
-        {
-            Console.WriteLine("Do you want to inver matrix?(Yes/No)");
-            matrixInversion = Console.ReadLine();
-            return;
-        }
+    
         public static string Actions()
         {
             string act ="";
@@ -55,8 +49,8 @@ namespace Lesson_4
         }
         public static void PosNeg(int line, int col, double[,] firstMatrix)
         {
-            string choosePosNeg = "";
-            Menu.posNeg(ref choosePosNeg);
+            string choosePosNeg = Menu.posNeg();
+           
             if (choosePosNeg == "positive")
             {
                 int i = 0;
@@ -100,10 +94,10 @@ namespace Lesson_4
                 Console.WriteLine($"The number of negative numbers is {j}! ");
             }
         }
-       public static double[,] SortedMatrix(int line,int col, double[,] firstMatrix)
-       {
-            string chooseSort = "";
-            Menu.sortEl(ref chooseSort);
+        public static void SortedMatrix(int line, int col, double[,] firstMatrix)
+        {
+            string chooseSort = Menu.sortEl();
+
             for (int x = 0; x < line; x++)
             {
                 for (int y = 0; y < col; y++)
@@ -144,8 +138,52 @@ namespace Lesson_4
             }
             Console.ReadLine();
 
-            return firstMatrix;
-       }
+
+        }
+
+        public static void Inversion(int lines, int col, double[,] Matrix)
+        {
+            for (int i = 0; i < lines; i++)
+            {
+                for (int j = 0; j < col / 2; j++)
+                {
+                    double temporary = Matrix[i, j];
+                    Matrix[i, j] = Matrix[i, col - (1 + j)];
+                    Matrix[i, col - (1 + j)] = temporary;
+                }
+            }
+            for (int x = 0; x < lines; x++)
+            {
+                for (int y = 0; y < col; y++)
+                {
+                    Console.Write("|" + Matrix[x, y] + " ");
+
+                }
+                Console.WriteLine();
+            }
+            Console.ReadLine();
+
+
+        }
+        public static string Continue()
+        {
+            string cont = "";
+            bool next = true;
+            while (next == true)
+            {
+                
+                Console.WriteLine("Do you want to continue?(+/-)");
+                cont = Console.ReadLine();
+
+                if (cont == "+" || cont == "-")
+                {
+                    next = false;
+                }
+                else
+                    next = true;
+            }
+            return cont;
+        }     
     }
 }
 

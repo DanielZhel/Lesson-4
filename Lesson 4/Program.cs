@@ -1,6 +1,5 @@
 ﻿using Lesson_4;
 
-
 int line = 0 ;
 int col = 0;
 bool cont = true;
@@ -38,7 +37,7 @@ double [,] firstMatrix = new double [line, col];
             cont2 = false;
             try
             {
-                Console.WriteLine($"Entered {x}{y} number of the matrix");
+                Console.WriteLine($"Entered {x}{y} number of the matrix!");
                 firstMatrix[x, y] = Convert.ToDouble(Console.ReadLine());
             }
             catch
@@ -56,7 +55,7 @@ double [,] firstMatrix = new double [line, col];
 bool cont3 = true;
 while (cont3 == true)
 {
-    Console.WriteLine("Do you wnat to look at your matrix?(Yes/No)"); //Display the matrix
+    Console.WriteLine("Do you want to look at your matrix?(Yes/No)"); //Display the matrix
 
     string ans = Console.ReadLine();
     if (ans == "Yes")
@@ -84,35 +83,28 @@ while (cont3 == true)
     }
 }
 
-string menu = Menu.Actions(); // Entering menu
-   
+string cont4 = "+";
 
-if (menu == "1")
+while(cont4 == "+")
 {
-    Menu.PosNeg(line, col, firstMatrix);
-    Console.ReadLine();
-}
-else if (menu == "2")
-{
-    Menu.SortedMatrix(line, col, firstMatrix);
-}
-else if (menu == "3") // positive humbers to negative. negative to positive
-{
-    string inversion = "";
-    Menu.matrixInversion(ref inversion);
-    double[,] newMatrix = new double[line, col];
-    if (inversion == "Yes")
+    string menu = Menu.Actions(); // Entering menu
+    
+
+    if (menu == "1")
     {
-
-        for (int x = 0; x < line; x++)
-        {
-            for (int y = 0; y < col; y++)
-            {
-                newMatrix[x, y] = -firstMatrix[x, y];
-                Console.Write("|" + newMatrix[x, y] + " ");
-            }
-            Console.WriteLine();
-        }
+        Menu.PosNeg(line, col, firstMatrix);
+        cont4 = Menu.Continue();
+        Console.ReadLine();
+    }
+    else if (menu == "2")
+    {
+        Menu.SortedMatrix(line, col, firstMatrix);
+        cont4 = Menu.Continue();
+    }
+    else if (menu == "3") // positive humbers to negative. negative to positive
+    {
+        Menu.Inversion(line, col, firstMatrix);
+        cont4 = Menu.Continue();
     }
 
 }
